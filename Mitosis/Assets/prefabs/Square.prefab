@@ -98,25 +98,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace2bd693842eac4db85669a7862b83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doubles: 0
-  lazer: {fileID: 1086791514934404288}
   projectile: {fileID: 1086791514934404288}
-  TimeBetweenShots: 1
-  shotCounter: 1
+  lazer: {fileID: 1086791514934404288}
   lazerSpeedY: 5
   lazerSpeedX: 5
-  lazerSound: {fileID: 8300000, guid: 656ffe657424dcc4cacd6d2a88981d9a, type: 3}
-  lazerVolume: 0.75
-  off: {fileID: -6074884938151849321, guid: 45f1e9d1e81b1d84290909e565d66498, type: 3}
-  on: {fileID: 1863914334009090029, guid: 45f1e9d1e81b1d84290909e565d66498, type: 3}
-  timer: 0
-  atimer: 0
-  btimer: 0
-  chipVFX: {fileID: 6186496100082769817, guid: e8e7bbdddd609bd41bd57d416dd23950, type: 3}
-  durationOfExplosion: 1.5
+  doubles: []
+  D: 0
+  i: 0
   happy: 0
-  friend: {fileID: 1086791514934404288}
-  player: {fileID: 4693884618677482290, guid: afd6ff6ed9d94fb4ea4affd3eaa53f2a, type: 3}
+  doubleList: []
+  e: 0
+  distance: 0
+  happyDist: 5
+  atimer: 0
+  had: 0
+  btimer: 0
+  angry: 0
+  ran: 0
+  angries: 0
+  dietimer: 0
+  incrincr: 1
+  spawnmax: 20
 --- !u!50 &5766914136662058563
 Rigidbody2D:
   serializedVersion: 4
@@ -130,7 +132,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -179,4 +181,4 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1.16
+  m_Radius: 1

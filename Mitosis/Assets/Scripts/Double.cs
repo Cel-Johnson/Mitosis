@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Double : MonoBehaviour
 {
+    /*
     public int doubles;
     private float velocity;
     public GameObject lazer;
@@ -23,10 +24,11 @@ public class Double : MonoBehaviour
     Vector2 frenpos;
     Vector2 mepos;
     Vector2 movedir;
-    public bool angry;
+   
     public int i;
     int ran = 0;
     float ranwait = 0;
+     public float btimer;
     public bool sadness;
     public bool acheck;
 
@@ -43,8 +45,13 @@ public class Double : MonoBehaviour
     }
 
 
-    void Update()
+   public void Update()
     {
+
+       if()
+        {
+
+        }
         Debug.Log("i is " + i);
         Debug.Log("angry is " + Singleton.cubeacount);
 
@@ -68,6 +75,7 @@ public class Double : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = off;
         }
        Attack();
+       
     }
     private void Attack()
     {
@@ -117,7 +125,7 @@ public class Double : MonoBehaviour
         if (happy == true && angry)
         {
          
-            if (btimer >= 0.1)
+            if (btimer >= 0.05)
             {
                 btimer = 0f;
                 GetComponent<Rigidbody2D>().AddForce(atpos);
@@ -126,7 +134,7 @@ public class Double : MonoBehaviour
             }
         }
     }
-    private void OnTriggerEnter2D()
+    public void OnTriggerEnter2D()
     {
         if (gameObject.tag == "Double")
         {
@@ -134,7 +142,7 @@ public class Double : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = on;
         }
     }
-    private void OnTriggerStay2D()
+    public void OnTriggerStay2D()
     {
         if (gameObject.tag == "Double")
         {
@@ -142,7 +150,7 @@ public class Double : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = on;
         }
     }
-    private void OnTriggerExit2D()
+    public void OnTriggerExit2D()
     {
         if (gameObject.tag == "Double" && angry == false)
         {
@@ -151,7 +159,7 @@ public class Double : MonoBehaviour
         }
         else sadness = true;
     }
-    private void Huddle()
+    public void Huddle()
     {
         
         if (happy == false)
@@ -191,10 +199,147 @@ public class Double : MonoBehaviour
     }
 
 
-    private void Fire()
+    public void Fire()
     {
         lazer = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
         lazer.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(1 * -lazerSpeedX, 1 * lazerSpeedX), Random.Range(1 * -lazerSpeedY, 1 * lazerSpeedY));
+    }
+    */
+    [SerializeField] GameObject projectile;
+    public GameObject lazer;
+    [SerializeField] float lazerSpeedY = 5f;
+    [SerializeField] float lazerSpeedX = 5f;
+    public GameObject[] doubles;
+    public int D;
+    public int i;
+    public bool happy;
+    public float[] doubleList;
+    public int e = 0;
+    public float distance;
+    public float happyDist;
+    public float atimer;
+    Vector2 frenpos;
+    Vector2 mepos;
+    Vector2 movedir;
+   public int had;
+    float ranwait = 0;
+    public float btimer;
+    public bool angry;
+    public int ran;
+    public int angries;
+    public float dietimer = 0;
+    public float incrincr;
+    public  int spawnmax;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        doubles = GameObject.FindGameObjectsWithTag("Double");
+        doubleList = new float[doubles.Length];
+       
+        dietimer += Time.deltaTime;
+        if (dietimer >= incrincr)
+        {
+            spawnmax += 1;
+            dietimer = 0;
+        }
+        if (doubles.Length < spawnmax)
+        {
+            lazer = Instantiate(projectile, transform.position * Random.Range(-2, 2), Quaternion.identity) as GameObject;
+            lazer.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(1 * -lazerSpeedX, 1 * lazerSpeedX), Random.Range(1 * -lazerSpeedY, 1 * lazerSpeedY));
+        }
+
+        for (D = 0; D < doubles.Length; D++)
+        {
+            distance = Vector3.Distance(transform.position, doubles[D].transform.position);
+            doubleList[D] = distance;
+
+        }
+        happy = false;
+        had = 0;
+        for (e = 0; e < doubleList.Length; e++)
+        {
+            if (doubleList[e] < happyDist && doubleList[e] > 1)
+            {
+              
+                had ++;
+                if(had >= doubleList.Length/5)
+                {
+                    happy = true;
+                }
+                
+            }
+        }
+        if (happy == false && angry == false)
+        {
+            atimer += Time.deltaTime;
+
+            if (atimer >= 0.1)
+            {
+                atimer = 0f;
+                Debug.DrawRay(transform.position, (movedir), Color.red, 0.25f);
+
+            }
+            Vector2 totpos = new Vector2(0, 0);
+            Vector2 avpos = new Vector2(0, 0);
+            GameObject[] friends = GameObject.FindGameObjectsWithTag("Double");
+
+            for (i = 0; i < friends.Length; i++)
+            {
+                Vector2 newDist = friends[i].transform.position;
+                if (friends[i] != gameObject)
+                {
+                    totpos = totpos + newDist;
+                    avpos = totpos / i;
+                   // friend = friends[i];
+
+                    mepos = gameObject.transform.position;
+                    movedir = avpos - mepos;
+                    GetComponent<Rigidbody2D>().velocity = movedir;
+
+
+                }
+            }
+        }
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector2 atpos = player.transform.position - transform.position;
+        {
+                ranwait += Time.deltaTime;
+                if (ranwait > Random.Range(5, 10))
+                {
+                    ranwait = 0;
+                   ran = Random.Range(1, 100);
+                }
+                if (ran > 80 && angries <= doubleList.Length * 0.33f)
+                {
+                    angry = true;
+                    angries += 1;
+                }
+                else
+                {
+                    angry = false;
+                    angries -= 1;
+                }
+            
+        }
+        if (angry == true)
+        {
+            btimer += Time.deltaTime;
+            if (btimer >= 0.01)
+            {
+                btimer = 0f;
+                GetComponent<Rigidbody2D>().AddForce(atpos);
+                Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
+
+            }
+        }
     }
 }
 
