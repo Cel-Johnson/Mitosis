@@ -230,6 +230,7 @@ public class Double : MonoBehaviour
     public float dietimer = 0;
     public float incrincr;
     public  int spawnmax;
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
@@ -240,6 +241,9 @@ public class Double : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         doubles = GameObject.FindGameObjectsWithTag("Double");
         doubleList = new float[doubles.Length];
        
@@ -284,7 +288,7 @@ public class Double : MonoBehaviour
             {
                 atimer = 0f;
                 Debug.DrawRay(transform.position, (movedir), Color.red, 0.25f);
-
+                  GetComponent<Rigidbody2D>().velocity = movedir/2;
             }
             Vector2 totpos = new Vector2(0, 0);
             Vector2 avpos = new Vector2(0, 0);
@@ -297,12 +301,9 @@ public class Double : MonoBehaviour
                 {
                     totpos = totpos + newDist;
                     avpos = totpos / i;
-                   // friend = friends[i];
 
                     mepos = gameObject.transform.position;
                     movedir = avpos - mepos;
-                    GetComponent<Rigidbody2D>().velocity = movedir;
-
 
                 }
             }
@@ -331,14 +332,24 @@ public class Double : MonoBehaviour
         }
         if (angry == true)
         {
+          
+            rb.drag = 1;
             btimer += Time.deltaTime;
-            if (btimer >= 0.01)
+            Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
+            if (btimer >= 1)
             {
                 btimer = 0f;
-                GetComponent<Rigidbody2D>().AddForce(atpos);
-                Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
+                GetComponent<Rigidbody2D>().velocity = (atpos);
+                GetComponent<Rigidbody2D>().velocity +=(atpos);
+               
+               
 
             }
+        }
+
+        else
+        {
+            rb.drag = 1f;
         }
     }
 }
