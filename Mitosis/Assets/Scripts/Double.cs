@@ -230,8 +230,10 @@ public class Double : MonoBehaviour
     public float dietimer = 0;
     public float incrincr;
     public  int spawnmax;
-    public Rigidbody2D rb;
-
+    public Rigidbody rb;
+    public float rotationalDamp = 0.5f;
+    public GameObject aimer;
+    public int spd;
     // Start is called before the first frame update
     void Start()
     {
@@ -241,7 +243,12 @@ public class Double : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Vector2 newVel = GetComponent<Rigidbody>().velocity;
+        newVel.x = Mathf.Clamp(newVel.x, -spd, spd);
+        GetComponent<Rigidbody>().velocity = newVel;
+        Vector2 newfall = GetComponent<Rigidbody>().velocity;
+        newfall.y = Mathf.Clamp(newfall.y, -spd, spd);
+        GetComponent<Rigidbody>().velocity = newfall;
 
 
         doubles = GameObject.FindGameObjectsWithTag("Double");
@@ -280,15 +287,24 @@ public class Double : MonoBehaviour
                 
             }
         }
-        if (happy == false && angry == false)
+        if ( angry == false)
         {
+            if (happy == false)
+            {
+                spd = 10;
+            }
+            else
+            {
+                spd = 5;
+            }
+           
             atimer += Time.deltaTime;
 
             if (atimer >= 0.1)
             {
                 atimer = 0f;
                 Debug.DrawRay(transform.position, (movedir), Color.red, 0.25f);
-                  GetComponent<Rigidbody2D>().velocity = movedir/2;
+                
             }
             Vector2 totpos = new Vector2(0, 0);
             Vector2 avpos = new Vector2(0, 0);
@@ -304,21 +320,26 @@ public class Double : MonoBehaviour
 
                     mepos = gameObject.transform.position;
                     movedir = avpos - mepos;
-
+                   
                 }
             }
+            Vector3 pos = new Vector3(movedir.x,movedir.y,0) - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(pos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
+            GetComponent<Rigidbody>().AddForce(aimer.transform.position - transform.position);
+            rb.drag = 0.5f;
         }
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector2 atpos = player.transform.position - transform.position;
         {
                 ranwait += Time.deltaTime;
-                if (ranwait > Random.Range(5, 10))
+                if (ranwait > Random.Range(10, 20))
                 {
                     ranwait = 0;
                    ran = Random.Range(1, 100);
                 }
-                if (ran > 80 && angries <= doubleList.Length * 0.33f)
+                if (ran > 50 && angries <= doubleList.Length * 0.33f)
                 {
                     angry = true;
                     angries += 1;
@@ -330,26 +351,31 @@ public class Double : MonoBehaviour
                 }
             
         }
-        if (angry == true)
+        if (angry == true )
         {
-          
-            rb.drag = 1;
+            spd = 15;
+            Vector3 pos = player.transform.position - transform.position;
+            Quaternion rotation = Quaternion.LookRotation(pos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
+            rb.drag = 0.5f;
             btimer += Time.deltaTime;
             Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
-            if (btimer >= 1)
+            if (btimer >= 0.01)
             {
-                btimer = 0f;
-                GetComponent<Rigidbody2D>().velocity = (atpos);
-                GetComponent<Rigidbody2D>().velocity +=(atpos);
-               
-               
+              btimer = 0f;
+
+
+                GetComponent<Rigidbody>().AddForce(aimer.transform.position - transform.position);
+
+
 
             }
+           
         }
 
         else
         {
-            rb.drag = 1f;
+            rb.drag = 0.5f;
         }
     }
 }

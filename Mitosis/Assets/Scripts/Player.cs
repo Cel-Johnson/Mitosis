@@ -23,24 +23,24 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow))
 
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 10));
+            GetComponent<Rigidbody>().AddForce(new Vector2(0, 10));
         }
         if (Input.GetKey(KeyCode.DownArrow))
 
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -10));
+            GetComponent<Rigidbody>().AddForce(new Vector2(0, -10));
 
         }
         if (Input.GetKey(KeyCode.RightArrow))
 
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(10, 0));
+            GetComponent<Rigidbody>().AddForce(new Vector2(10, 0));
 
         }
         if (Input.GetKey(KeyCode.LeftArrow))
 
         {
-            GetComponent<Rigidbody2D>().AddForce(new Vector2(-10, 0));
+            GetComponent<Rigidbody>().AddForce(new Vector2(-10, 0));
 
         }
     
@@ -67,22 +67,22 @@ public class Player : MonoBehaviour
 
     private void anvel()
     {
-        Vector2 newVel = GetComponent<Rigidbody2D>().velocity;
+        Vector2 newVel = GetComponent<Rigidbody>().velocity;
         newVel.x = Mathf.Clamp(newVel.x, -0, 0);
-        GetComponent<Rigidbody2D>().velocity = newVel;
-        Vector2 newfall = GetComponent<Rigidbody2D>().velocity;
+        GetComponent<Rigidbody>().velocity = newVel;
+        Vector2 newfall = GetComponent<Rigidbody>().velocity;
         newfall.y = Mathf.Clamp(newfall.y, -0, 0);
-        GetComponent<Rigidbody2D>().velocity = newfall;
+        GetComponent<Rigidbody>().velocity = newfall;
     }
 
     public void vel()
     {
-        Vector2 newVel = GetComponent<Rigidbody2D>().velocity;
+        Vector2 newVel = GetComponent<Rigidbody>().velocity;
         newVel.x = Mathf.Clamp(newVel.x, -10, 10);
-        GetComponent<Rigidbody2D>().velocity = newVel;
-        Vector2 newfall = GetComponent<Rigidbody2D>().velocity;
+        GetComponent<Rigidbody>().velocity = newVel;
+        Vector2 newfall = GetComponent<Rigidbody>().velocity;
         newfall.y = Mathf.Clamp(newfall.y, -10, 10);
-        GetComponent<Rigidbody2D>().velocity = newfall;
+        GetComponent<Rigidbody>().velocity = newfall;
     }
 
 
