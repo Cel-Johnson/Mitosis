@@ -4,207 +4,6 @@ using UnityEngine;
 
 public class Double : MonoBehaviour
 {
-    /*
-    public int doubles;
-    private float velocity;
-    public GameObject lazer;
-    [SerializeField] GameObject projectile;
-    [SerializeField] int TimeBetweenShots;
-    [SerializeField] float shotCounter;
-    [SerializeField] float lazerSpeedY = 5f;
-    [SerializeField] float lazerSpeedX = 5f;
-    [SerializeField] AudioClip lazerSound;
-    [SerializeField] [Range(0, 10)] float lazerVolume = 0.75f;
-    [SerializeField] Sprite off;
-    [SerializeField] Sprite on;
-    public float timer;
-    public float atimer;
-    public float btimer;
-    [SerializeField] GameObject chipVFX;
-    Vector2 frenpos;
-    Vector2 mepos;
-    Vector2 movedir;
-   
-    public int i;
-    int ran = 0;
-    float ranwait = 0;
-     public float btimer;
-    public bool sadness;
-    public bool acheck;
-
-
-    [SerializeField] float durationOfExplosion = 1.5f;
-    public bool happy;
-    public GameObject friend;
-    
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        GetComponent<SpriteRenderer>().sprite = off;
-    }
-
-
-   public void Update()
-    {
-
-       if()
-        {
-
-        }
-        Debug.Log("i is " + i);
-        Debug.Log("angry is " + Singleton.cubeacount);
-
-
-
-        int doubles = FindObjectsOfType<Double>().Length;
-        timer += Time.deltaTime;
-        Huddle();
-        if (timer >= 1)
-        {
-            timer = 0f;
-           
-            if (doubles <= 70f)
-            {
-                Fire();
-            }
-        }
-        if (happy == false)
-        {
-            Debug.Log("I am sad. I am sad, I am so very very sad and alone.");
-            GetComponent<SpriteRenderer>().sprite = off;
-        }
-       Attack();
-       
-    }
-    private void Attack()
-    {
-       
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Vector2 atpos = player.transform.position - transform.position;
-        btimer += Time.deltaTime;
-        
-        {
-            if (Singleton.cubeacount < i * 0.3333f)
-            {
-                ranwait += Time.deltaTime;
-                if (ranwait > Random.Range(5, 10))
-                {
-                    ranwait = 0;
-                    ran = Random.Range(1, 100);
-                }
-                if (ran > 80)
-                {
-                    angry = true;
-                    if (acheck == false)
-                    {
-                        Singleton.cubeacount = Singleton.cubeacount + 1;
-                        acheck = true;
-                    }
-
-                }
-            }
-            else
-            {
-                angry = false;
-                if (acheck == true)
-                {
-                    Singleton.cubeacount = Singleton.cubeacount - 1;
-                    acheck = false;
-                }
-                if (sadness == true)
-                {
-                    happy = false;
-                    sadness = false;
-                }
-            }
-           
-            
-        }
-        
-        if (happy == true && angry)
-        {
-         
-            if (btimer >= 0.05)
-            {
-                btimer = 0f;
-                GetComponent<Rigidbody2D>().AddForce(atpos);
-                Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
-
-            }
-        }
-    }
-    public void OnTriggerEnter2D()
-    {
-        if (gameObject.tag == "Double")
-        {
-            happy = true;
-            GetComponent<SpriteRenderer>().sprite = on;
-        }
-    }
-    public void OnTriggerStay2D()
-    {
-        if (gameObject.tag == "Double")
-        {
-            happy = true;
-            GetComponent<SpriteRenderer>().sprite = on;
-        }
-    }
-    public void OnTriggerExit2D()
-    {
-        if (gameObject.tag == "Double" && angry == false)
-        {
-            happy = false;
-            GetComponent<SpriteRenderer>().sprite = off;
-        }
-        else sadness = true;
-    }
-    public void Huddle()
-    {
-        
-        if (happy == false)
-        {
-            atimer += Time.deltaTime;
-
-            if (atimer >= 0.1)
-            {
-                atimer = 0f;
-                Debug.DrawRay(transform.position, (movedir), Color.red, 0.25f);
-
-            }
-            Vector2 totpos = new Vector2(0, 0);
-            Vector2 avpos = new Vector2(0, 0);
-            GameObject[] friends = GameObject.FindGameObjectsWithTag("Double");
-
-            for (  i = 0; i < friends.Length; i++)
-            {
-                Vector2 newDist = friends[i].transform.position;
-                if (friends[i] != gameObject)
-                {
-                    totpos = totpos + newDist;
-                    avpos = totpos / i;
-                    friend = friends[i];
-
-                    mepos = gameObject.transform.position;
-                    movedir = avpos - mepos;
-                    GetComponent<Rigidbody2D>().velocity = movedir;
-                   
-                   
-                }
-            }
-
-
-        }
-
-    }
-
-
-    public void Fire()
-    {
-        lazer = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
-        lazer.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(1 * -lazerSpeedX, 1 * lazerSpeedX), Random.Range(1 * -lazerSpeedY, 1 * lazerSpeedY));
-    }
-    */
     [SerializeField] GameObject projectile;
     public GameObject lazer;
     [SerializeField] float lazerSpeedY = 5f;
@@ -234,26 +33,25 @@ public class Double : MonoBehaviour
     public float rotationalDamp = 0.5f;
     public GameObject aimer;
     public int spd;
+    public bool swarm = false;
     // Start is called before the first frame update
     void Start()
     {
-
+        ranwait = Random.Range(0, 5);
     }
-
     // Update is called once per frame
     void Update()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector2 atpos = player.transform.position - transform.position;
         Vector2 newVel = GetComponent<Rigidbody>().velocity;
         newVel.x = Mathf.Clamp(newVel.x, -spd, spd);
         GetComponent<Rigidbody>().velocity = newVel;
         Vector2 newfall = GetComponent<Rigidbody>().velocity;
         newfall.y = Mathf.Clamp(newfall.y, -spd, spd);
         GetComponent<Rigidbody>().velocity = newfall;
-
-
         doubles = GameObject.FindGameObjectsWithTag("Double");
         doubleList = new float[doubles.Length];
-       
         dietimer += Time.deltaTime;
         if (dietimer >= incrincr)
         {
@@ -263,14 +61,12 @@ public class Double : MonoBehaviour
         if (doubles.Length < spawnmax)
         {
             lazer = Instantiate(projectile, transform.position * Random.Range(-2, 2), Quaternion.identity) as GameObject;
-            lazer.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(1 * -lazerSpeedX, 1 * lazerSpeedX), Random.Range(1 * -lazerSpeedY, 1 * lazerSpeedY));
+            lazer.GetComponent<Rigidbody>().velocity = new Vector2(Random.Range(1 * -lazerSpeedX, 1 * lazerSpeedX), Random.Range(1 * -lazerSpeedY, 1 * lazerSpeedY));
         }
-
         for (D = 0; D < doubles.Length; D++)
         {
             distance = Vector3.Distance(transform.position, doubles[D].transform.position);
             doubleList[D] = distance;
-
         }
         happy = false;
         had = 0;
@@ -278,13 +74,11 @@ public class Double : MonoBehaviour
         {
             if (doubleList[e] < happyDist && doubleList[e] > 1)
             {
-              
                 had ++;
                 if(had >= doubleList.Length/5)
                 {
                     happy = true;
                 }
-                
             }
         }
         if ( angry == false)
@@ -295,21 +89,12 @@ public class Double : MonoBehaviour
             }
             else
             {
-                spd = 5;
+                spd = 10;
             }
-           
-            atimer += Time.deltaTime;
-
-            if (atimer >= 0.1)
-            {
-                atimer = 0f;
-                Debug.DrawRay(transform.position, (movedir), Color.red, 0.25f);
-                
-            }
+            
             Vector2 totpos = new Vector2(0, 0);
             Vector2 avpos = new Vector2(0, 0);
             GameObject[] friends = GameObject.FindGameObjectsWithTag("Double");
-
             for (i = 0; i < friends.Length; i++)
             {
                 Vector2 newDist = friends[i].transform.position;
@@ -317,24 +102,36 @@ public class Double : MonoBehaviour
                 {
                     totpos = totpos + newDist;
                     avpos = totpos / i;
-
                     mepos = gameObject.transform.position;
-                    movedir = avpos - mepos;
-                   
+                    
                 }
             }
-            Vector3 pos = new Vector3(movedir.x,movedir.y,0) - transform.position;
+            if (i== friends.Length&& swarm == true)
+            {
+                avpos += avpos * 2;
+               avpos += new Vector2(player.transform.position.x, player.transform.position.y);
+                avpos = avpos / 4;
+              
+            }
+            atimer += Time.deltaTime;
+
+            if (atimer >= 0.001)
+            {
+                atimer = 0f;
+                Debug.DrawRay(transform.position, (avpos-mepos), Color.red, 0.25f);
+            }
+            Vector3 pos = new Vector3(avpos.x,avpos.y,0) - transform.position;
             Quaternion rotation = Quaternion.LookRotation(pos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
             GetComponent<Rigidbody>().AddForce(aimer.transform.position - transform.position);
             rb.drag = 0.5f;
+            
         }
+        
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Vector2 atpos = player.transform.position - transform.position;
         {
                 ranwait += Time.deltaTime;
-                if (ranwait > Random.Range(10, 20))
+                if (ranwait > Random.Range(5, 20))
                 {
                     ranwait = 0;
                    ran = Random.Range(1, 100);
@@ -349,11 +146,10 @@ public class Double : MonoBehaviour
                     angry = false;
                     angries -= 1;
                 }
-            
         }
         if (angry == true )
         {
-            spd = 15;
+            spd = 20;
             Vector3 pos = player.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(pos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
@@ -361,18 +157,9 @@ public class Double : MonoBehaviour
             btimer += Time.deltaTime;
             Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
             if (btimer >= 0.01)
-            {
               btimer = 0f;
-
-
-                GetComponent<Rigidbody>().AddForce(aimer.transform.position - transform.position);
-
-
-
-            }
-           
+                GetComponent<Rigidbody>().velocity =(aimer.transform.position - transform.position);
         }
-
         else
         {
             rb.drag = 0.5f;

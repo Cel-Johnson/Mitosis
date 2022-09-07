@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class cameraShmove : MonoBehaviour
 {
+    public float spd;
     public float btimer;
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,13 @@ public class cameraShmove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 newVel = GetComponent<Rigidbody2D>().velocity;
+        newVel.x = Mathf.Clamp(newVel.x, -spd, spd);
+        GetComponent<Rigidbody2D>().velocity = newVel;
+        Vector2 newfall = GetComponent<Rigidbody2D>().velocity;
+        newfall.y = Mathf.Clamp(newfall.y, -spd, spd);
+        GetComponent<Rigidbody2D>().velocity = newfall;
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector2 atpos = player.transform.position - transform.position;
         btimer += Time.deltaTime;

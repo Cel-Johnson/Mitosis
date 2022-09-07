@@ -4,84 +4,52 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static Vector2 plapospub;
-
-    public Vector2 plapos;
-
+    public float wel;
+   public int apple = 10;
     void Start()
     {
 
     }
-
-
     void Update()
     {
+        wel += Time.deltaTime;
 
-        plapos = transform.position;
-        plapospub = plapos;
-
-        if (Input.GetKey(KeyCode.UpArrow))
-
+        if (wel >= 0.01f)
         {
-            GetComponent<Rigidbody>().AddForce(new Vector2(0, 10));
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
+            wel = 0;
+            if (Input.GetKey(KeyCode.UpArrow))
 
-        {
-            GetComponent<Rigidbody>().AddForce(new Vector2(0, -10));
+            {
+                GetComponent<Rigidbody>().AddForce(new Vector2(0, apple));
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
 
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
+            {
+                GetComponent<Rigidbody>().AddForce(new Vector2(0, -apple));
 
-        {
-            GetComponent<Rigidbody>().AddForce(new Vector2(10, 0));
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
 
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                GetComponent<Rigidbody>().AddForce(new Vector2(apple, 0));
 
-        {
-            GetComponent<Rigidbody>().AddForce(new Vector2(-10, 0));
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
 
-        }
-    
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            vel();
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            vel();
-        }
-        else if (Input.GetKey(KeyCode.DownArrow))
-        {
-            vel();
-        }
-        else if (Input.GetKey(KeyCode.UpArrow))
-        {
+            {
+                GetComponent<Rigidbody>().AddForce(new Vector2(-apple, 0));
+
+            }
             vel();
         }
     }
-
-
-
-
-    private void anvel()
-    {
-        Vector2 newVel = GetComponent<Rigidbody>().velocity;
-        newVel.x = Mathf.Clamp(newVel.x, -0, 0);
-        GetComponent<Rigidbody>().velocity = newVel;
-        Vector2 newfall = GetComponent<Rigidbody>().velocity;
-        newfall.y = Mathf.Clamp(newfall.y, -0, 0);
-        GetComponent<Rigidbody>().velocity = newfall;
-    }
-
     public void vel()
     {
         Vector2 newVel = GetComponent<Rigidbody>().velocity;
-        newVel.x = Mathf.Clamp(newVel.x, -10, 10);
+        newVel.x = Mathf.Clamp(newVel.x, -apple, apple);
         GetComponent<Rigidbody>().velocity = newVel;
         Vector2 newfall = GetComponent<Rigidbody>().velocity;
-        newfall.y = Mathf.Clamp(newfall.y, -10, 10);
+        newfall.y = Mathf.Clamp(newfall.y, -apple, apple);
         GetComponent<Rigidbody>().velocity = newfall;
     }
 
