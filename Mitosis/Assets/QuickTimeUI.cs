@@ -13,68 +13,79 @@ public class QuickTimeUI : MonoBehaviour
     public Vector3 scaleChange;
     public GameObject me;
     public bool big;
+    public float timer;
+    public float upfreq;
+    public float sC;
+    public float sss;
     // Start is called before the first frame update
     void Start()
     {
-        scaleChange = new Vector3(0.02f, 0.02f, 0.02f);
-        x = me.transform.localScale.x;
+        big = true;
+        sss = sC * Random.Range(0.5f, 2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sizegot == false)
-        {
-            sizegot = true;
-            if(big==true)
-            {
-                ran = Random.Range(7, 10);
+       
+        scaleChange = new Vector3(sss, sss, sss);
 
-            }
-            else
-            {
-                ran = 0;
-            }
-            
-            sizegoal = new Vector3 (ran,ran,ran);
-        }
-        if (sizegot == true && me.transform.localScale != new Vector3(0, 0, 0))
+        timer += Time.deltaTime;
+        if (timer >= upfreq)
         {
-            if (x < ran + 0.1f && x > ran - 0.1f)
+            timer = 0;
+            if (sizegot == false)
             {
-                sizegot = false;
-                if(big ==true)
+                sizegot = true;
+                if (big == true)
                 {
-                    big = false;
+                    ran = Random.Range(4, 6);
+
                 }
                 else
                 {
+                    ran = 0;
+                }
+
+                sizegoal = new Vector3(ran, ran, ran);
+            }
+            if (sizegot == true && me.transform.localScale != new Vector3(0, 0, 0))
+            {
+                if (x < ran + sC && x > ran - sC)
+                {
+                    sizegot = false;
+                    sss = sC * Random.Range(0.5f, 2f);
+                    if (big == true)
+                    {
+                        big = false;
+                    }
+                    else
+                    {
+                        big = true;
+                    }
+                }
+                x = me.transform.localScale.x;
+                if (x < ran)
+                {
+                    me.transform.localScale += scaleChange;
+                }
+                if (x > ran)
+                {
+                    me.transform.localScale -= scaleChange;
+                }
+
+            }
+            if (Input.GetKey(KeyCode.Space))
+
+            {
+                if (big == false)
+                {
                     big = true;
+                    sizegot = false;
+                    Debug.Log(1 - x);
                 }
             }
-            if (x < ran)
-            {
-                me.transform.localScale += scaleChange;
-                x += 0.02f;
-            }
-            if (x > ran)
-            {
-                me.transform.localScale -= scaleChange;
-                x -= 0.02f;
-            }
-           
         }
-        if (Input.GetKey(KeyCode.Space))
-
-        {
-            if (big == false)
-            {
-                big = true;
-                sizegot = false;
-                Debug.Log(1-x);
-            }
-        }
-        
     }
 
 }

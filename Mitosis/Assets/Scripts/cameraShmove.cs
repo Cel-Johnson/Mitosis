@@ -15,7 +15,7 @@ public class cameraShmove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 newVel = GetComponent<Rigidbody2D>().velocity;
+        Vector2 newVel = gameObject.GetComponent<Rigidbody2D>().velocity;
         newVel.x = Mathf.Clamp(newVel.x, -spd, spd);
         GetComponent<Rigidbody2D>().velocity = newVel;
         Vector2 newfall = GetComponent<Rigidbody2D>().velocity;
