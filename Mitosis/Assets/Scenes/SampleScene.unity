@@ -314,7 +314,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 899865227879598, guid: f3528f21ea2a60f408ccf8c94b0b528e, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 0.38
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1086791514934404288, guid: f3528f21ea2a60f408ccf8c94b0b528e, type: 3}
       propertyPath: m_Name
