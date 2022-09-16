@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class lspawn : MonoBehaviour
+public class rspawn : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
     public GameObject lazer;
@@ -20,12 +20,12 @@ public class lspawn : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= (ran))
+        if (timer >=(ran))
         {
             timer = 0;
             ran = stime;
             ran = stime * Random.Range(0.5f, 1.5f);
-            lazer = Instantiate(projectile, transform.position, Quaternion.identity) as GameObject;
+            lazer = Instantiate(projectile, transform.position , Quaternion.identity) as GameObject;
 
         }
     }

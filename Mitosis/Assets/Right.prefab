@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2117193057330868443}
   - component: {fileID: 2117193057330868444}
   - component: {fileID: 2117193057330868445}
-  - component: {fileID: 3253154503620553680}
+  - component: {fileID: -2892541036386911822}
   m_Layer: 0
-  m_Name: Left
+  m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -116,13 +116,13 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 5.52
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: -1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3253154503620553680
+--- !u!114 &-2892541036386911822
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,8 +131,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2117193057330868446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e474f23ca18f21441ae932ca5522e652, type: 3}
+  m_Script: {fileID: 11500000, guid: 89c1171ef015acc44b6f09b5b73554c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rgoal: {fileID: 6767278091054299278, guid: 8b13806d12682284cad6b9e48830602a, type: 3}
-  ridentity: 0
+  lgoal: {fileID: 6963786507700115669, guid: be8190f934853104ebce4aef48116bde, type: 3}
+  lidentity: 0
