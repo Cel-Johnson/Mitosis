@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     {
         wel += Time.deltaTime;
 
-        if (wel >= 0.01f)
+        if (wel >= 0.001f)
         {
             wel = 0;
             if (Input.GetKey(KeyCode.W))

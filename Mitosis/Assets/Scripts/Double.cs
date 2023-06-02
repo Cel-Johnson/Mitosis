@@ -83,15 +83,7 @@ public class Double : MonoBehaviour
         }
         if ( angry == false)
         {
-            if (happy == false)
-            {
-                spd = 10;
-            }
-            else
-            {
-                spd = 10;
-            }
-            
+           
             Vector2 totpos = new Vector2(0, 0);
             Vector2 avpos = new Vector2(0, 0);
             GameObject[] friends = GameObject.FindGameObjectsWithTag("Double");
@@ -124,7 +116,7 @@ public class Double : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(pos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
             GetComponent<Rigidbody>().AddForce(aimer.transform.position - transform.position);
-            rb.drag = 0.5f;
+            //rb.drag = 0.5f;
             
         }
         
@@ -149,20 +141,19 @@ public class Double : MonoBehaviour
         }
         if (angry == true )
         {
-            spd = 20;
             Vector3 pos = player.transform.position - transform.position;
             Quaternion rotation = Quaternion.LookRotation(pos);
             transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
-            rb.drag = 0.5f;
+            //rb.drag = 0.5f;
             btimer += Time.deltaTime;
             Debug.DrawRay(transform.position, (atpos), Color.blue, 0.25f);
             if (btimer >= 0.01)
               btimer = 0f;
-                GetComponent<Rigidbody>().velocity =(aimer.transform.position - transform.position);
+                GetComponent<Rigidbody>().AddForce(aimer.transform.position - transform.position);
         }
         else
         {
-            rb.drag = 0.5f;
+           // rb.drag = 0.5f;
         }
     }
 }
